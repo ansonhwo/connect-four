@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <title>Redux Connect Four</title>
+  </head>
+  <body>
+    <p class="header">Connect Four</p>
+    <div id="board">
+      <p id="status" v-show="state.start"><em>Player {{ state.player }}'s Turn  </em><i class="circle icon" v-bind:class="{ 'red-icon': red, 'blue-icon': blue }"></i></p>
+      <p id="win" v-show="state.win">PLAYER {{ state.player }} WINS!  <i class="circle icon" v-bind:class="{ 'red-icon': red, 'blue-icon': blue }"></i></p>
+      <p id="draw" v-show="state.draw">It's a draw!</p>
+      <div class="ui seven column grid container">
+        <a href="#" data-col="0" class="column" @click.prevent @click="addPiece($event)">
+          <div data-col="0" data-row="0" class="row none"></div>
+          <div data-col="0" data-row="1" class="row none"></div>
+          <div data-col="0" data-row="2" class="row none"></div>
+          <div data-col="0" data-row="3" class="row none"></div>
+          <div data-col="0" data-row="4" class="row none"></div>
+          <div data-col="0" data-row="5" class="row none"></div>
+        </a>
+        <a href="#" data-col="1" class="column" @click.prevent @click="addPiece($event)">
+          <div data-col="1" data-row="0" class="row none"></div>
+          <div data-col="1" data-row="1" class="row none"></div>
+          <div data-col="1" data-row="2" class="row none"></div>
+          <div data-col="1" data-row="3" class="row none"></div>
+          <div data-col="1" data-row="4" class="row none"></div>
+          <div data-col="1" data-row="5" class="row none"></div>
+        </a>
+        <a href="#" data-col="2" class="column" @click.prevent @click="addPiece($event)">
+          <div data-col="2" data-row="0" class="row none"></div>
+          <div data-col="2" data-row="1" class="row none"></div>
+          <div data-col="2" data-row="2" class="row none"></div>
+          <div data-col="2" data-row="3" class="row none"></div>
+          <div data-col="2" data-row="4" class="row none"></div>
+          <div data-col="2" data-row="5" class="row none"></div>
+        </a>
+        <a href="#" data-col="3" class="column" @click.prevent @click="addPiece($event)">
+          <div data-col="3" data-row="0" class="row none"></div>
+          <div data-col="3" data-row="1" class="row none"></div>
+          <div data-col="3" data-row="2" class="row none"></div>
+          <div data-col="3" data-row="3" class="row none"></div>
+          <div data-col="3" data-row="4" class="row none"></div>
+          <div data-col="3" data-row="5" class="row none"></div>
+        </a>
+        <a href="#" data-col="4" class="column" @click.prevent @click="addPiece($event)">
+          <div data-col="4" data-row="0" class="row none"></div>
+          <div data-col="4" data-row="1" class="row none"></div>
+          <div data-col="4" data-row="2" class="row none"></div>
+          <div data-col="4" data-row="3" class="row none"></div>
+          <div data-col="4" data-row="4" class="row none"></div>
+          <div data-col="4" data-row="5" class="row none"></div>
+        </a>
+        <a href="#" data-col="5" class="column" @click.prevent @click="addPiece($event)">
+          <div data-col="5" data-row="0" class="row none"></div>
+          <div data-col="5" data-row="1" class="row none"></div>
+          <div data-col="5" data-row="2" class="row none"></div>
+          <div data-col="5" data-row="3" class="row none"></div>
+          <div data-col="5" data-row="4" class="row none"></div>
+          <div data-col="5" data-row="5" class="row none"></div>
+        </a>
+        <a href="#" data-col="6" class="column" @click.prevent @click="addPiece($event)">
+          <div data-col="6" data-row="0" class="row none"></div>
+          <div data-col="6" data-row="1" class="row none"></div>
+          <div data-col="6" data-row="2" class="row none"></div>
+          <div data-col="6" data-row="3" class="row none"></div>
+          <div data-col="6" data-row="4" class="row none"></div>
+          <div data-col="6" data-row="5" class="row none"></div>
+        </a>
+      </div>
+      <div class="container">
+        <button class="ui blue start fluid button" @click="startGame">Start Game</button>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.6.0/redux.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
