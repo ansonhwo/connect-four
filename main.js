@@ -54,12 +54,12 @@ const reducer = (state, action) => {
         board.state = nextState
         return nextState
       }
-      // Add piece to the top of the most recent piece
+      // Add piece to the top of the most recent piece, and track the move
       else if (row > 0 && row <= 5) {
         nextState.board[col][row-1] = state.player
         nextState.moves.push( [col, row-1] )
       }
-      // Column is empty, so add piece to the very bottom
+      // Column is empty, so add piece to the very bottom, and track the move
       else {
         nextState.board[col][5] = state.player
         nextState.moves.push( [col, 5] )
