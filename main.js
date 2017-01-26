@@ -65,7 +65,7 @@ const reducer = (state, action) => {
         nextState.moves.push( [col, 5] )
       }
 
-      // Move was valid, track the newly placed piece
+      // Move was valid
       nextState.invalidMove = false
       nextState.turns = ++state.turns
 
