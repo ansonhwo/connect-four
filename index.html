@@ -10,8 +10,8 @@
     <p class="header">Connect Four</p>
     <div id="board">
       <p id="status" v-show="state.start"><em>Player {{ state.player }}'s Turn  </em><i class="circle icon" v-bind:class="{ 'red-icon': red, 'blue-icon': blue }"></i></p>
-      <p id="win" v-show="state.win">PLAYER {{ state.player }} WINS!  <i class="circle icon" v-bind:class="{ 'red-icon': red, 'blue-icon': blue }"></i></p>
-      <p id="draw" v-show="state.draw">It's a draw!</p>
+      <p id="win" v-show="state.win">PLAYER {{ state.player }} WINS!  <i class="circle icon" v-bind:class="{ 'red-icon': red, 'blue-icon': blue }"></i>  Play Again?</p>
+      <p id="draw" v-show="state.draw">It's a draw! Play Again?</p>
       <div class="ui seven column grid container">
         <a href="#" data-col="0" class="column" @click.prevent @click="addPiece($event)">
           <div data-col="0" data-row="0" class="row none"></div>

@@ -38,6 +38,30 @@ const reducer = (state, action) => {
       board.state = nextState
       return nextState
     }
+    case 'CLEAR': {
+      const nextState = Object.assign({}, {
+        board: [
+          [null, null, null, null, null, null],
+          [null, null, null, null, null, null],
+          [null, null, null, null, null, null],
+          [null, null, null, null, null, null],
+          [null, null, null, null, null, null],
+          [null, null, null, null, null, null],
+          [null, null, null, null, null, null]
+        ],
+        win: false,
+        draw: false,
+        start: false,
+        done: false,
+        player: Math.floor(Math.random() * (11 - 1)) + 1 <= 5 ? 1 : 2,
+        moves: [],
+        invalidMove: false,
+        turns: 1
+      })
+
+      board.state = nextState
+      return nextState
+    }
     case 'ADDPIECE': {
       const nextState = Object.assign({}, state)
       const col = parseInt(action.col)
@@ -100,14 +124,18 @@ const store = Redux.createStore(reducer, initialState)
 
 const draw = () => {
   const state = store.getState()
-  const board = state.board
-  const cols = document.querySelectorAll('#board a.column')
-  const [ c, r ] = state.moves[state.moves.length - 1]
 
-  // Update DOM with the appropriate player piece color
-  cols[c].children[r].classList.remove('none')
-  if (board[c][r] === 1) cols[c].children[r].classList.add('red')
-  else cols[c].children[r].classList.add('blue')
+  // If a move history exists, add DOM piece indicator
+  if (state.moves.length > 0) {
+    const board = state.board
+    const cols = document.querySelectorAll('#board a.column')
+    const [ c, r ] = state.moves[state.moves.length - 1]
+
+    // Update DOM with the appropriate player piece color
+    cols[c].children[r].classList.remove('none')
+    if (board[c][r] === 1) cols[c].children[r].classList.add('red')
+    else if (board[c][r] === 2) cols[c].children[r].classList.add('blue')
+  }
 }
 
 // Determine if there is a winner after placing a game piece
@@ -174,10 +202,16 @@ const board = new Vue({
     blue: false
   },
   methods: {
+    // Player clicks the Start Game button
     startGame: function() {
+      if (this.state.win) {
+        store.dispatch( { type: 'CLEAR' } )
+        this.clearIndicators()
+      }
       this.changeColor()
       store.dispatch( { type: 'START' } )
     },
+    // Player clicks on a board column
     addPiece: function(event) {
       if (this.state.start) {
         store.dispatch( { type: 'ADDPIECE', col: event.target.dataset.col } )
@@ -190,6 +224,7 @@ const board = new Vue({
         }
       }
     },
+    // Update the current player display
     changeColor: function() {
       if (this.state.player === 1) {
         this.red = true
@@ -198,6 +233,21 @@ const board = new Vue({
       else {
         this.red = false
         this.blue = true
+      }
+    },
+    // Clear all existing DOM piece indicators on the board
+    clearIndicators: function() {
+      const cols = document.querySelectorAll('#board a.column')
+
+      for (let i = 0; i < cols.length; i++) {
+        for (let j = 0; j < cols[i].children.length; j++) {
+          let element = cols[i].children[j]
+          if (element.classList.contains('red') || element.classList.contains('blue')) {
+            element.classList.remove('red')
+            element.classList.remove('blue')
+            element.classList.add('none')
+          }
+        }
       }
     }
   }
