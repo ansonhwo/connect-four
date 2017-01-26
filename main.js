@@ -99,20 +99,15 @@ const initialState = {
 const store = Redux.createStore(reducer, initialState)
 
 const draw = () => {
-  const board = store.getState().board
+  const state = store.getState()
+  const board = state.board
   const cols = document.querySelectorAll('#board a.column')
+  const [ c, r ] = state.moves[state.moves.length - 1]
 
-  // Update DOM with the appropriate player piece colors
-  for (let i = 0; i < cols.length; i++) {
-    for (let j = 0; j < cols[i].children.length; j++) {
-      if (board[i][j] === 1 || board[i][j] === 2) {
-        cols[i].children[j].classList.remove('none')
-
-        if (board[i][j] === 1) cols[i].children[j].classList.add('red')
-        else cols[i].children[j].classList.add('blue')
-      }
-    }
-  }
+  // Update DOM with the appropriate player piece color
+  cols[c].children[r].classList.remove('none')
+  if (board[c][r] === 1) cols[c].children[r].classList.add('red')
+  else cols[c].children[r].classList.add('blue')
 }
 
 // Determine if there is a winner after placing a game piece
